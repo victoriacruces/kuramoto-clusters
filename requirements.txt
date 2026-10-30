@@ -1,0 +1,13 @@
+numpy>=1.26
+scipy>=1.11
+networkx>=3.2
+pandas>=2.0
+matplotlib>=3.8
+scikit-learn>=1.3
+torch>=2.1
+cvxpy>=1.4
+clarabel>=0.6
+cma>=3.3
+mpmath>=1.3
+joblib>=1.3
+jupyter
