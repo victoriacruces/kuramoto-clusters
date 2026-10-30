@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Conectividad crítica en Kuramoto</title>
+<meta name="description" content="Cota inferior certificada para la conectividad crítica de sincronización global en el modelo de Kuramoto.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050506; --fg: #e8e4da; --muted: #8d897f; --line: #26252a;
+    --accent: #d9c98a; --luz: 220, 236, 120;
+    --serif: "EB Garamond", Garamond, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 20px/1.6 var(--serif); font-feature-settings: "kern", "liga", "onum";
+    -webkit-font-smoothing: antialiased;
+  }
+  #luciernagas { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  main { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 72px 16px 80px; }
+  .etiqueta {
+    font: 500 12px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 20px;
+  }
+  h1 { font-weight: 400; font-size: clamp(32px, 7vw, 46px); line-height: 1.12; margin: 0 0 20px; letter-spacing: -.005em; }
+  .autores { color: var(--muted); font-style: italic; margin: 0; }
+  .resultado { margin: 40px 0 0; padding: 22px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .resultado .valor { font-size: 30px; font-variant-numeric: lining-nums tabular-nums; }
+  .resultado .nota { font: 400 14px/1.5 var(--sans); color: var(--muted); margin-top: 4px; }
+  section { margin-top: 56px; }
+  h2 { font: 500 12px/1.4 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+  p { margin: 0 0 16px; }
+  a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { color: var(--fg); }
+  .pendiente { color: var(--muted); font-style: italic; border-left: 1px solid var(--muted); padding-left: 16px; }
+  .enlaces { font: 400 15px/1.5 var(--sans); margin: 0 0 22px; }
+  .enlaces a + a { margin-left: 22px; }
+  .visor { width: 100%; height: 82vh; min-height: 480px; border: 1px solid var(--line); background: #111; }
+  footer { margin-top: 80px; padding-top: 18px; border-top: 1px solid var(--line); font: 400 13px/1.5 var(--sans); color: var(--muted); }
+  footer a { color: var(--muted); }
+  footer p { margin: 0 0 8px; }
+  .contactos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 22px; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<canvas id="luciernagas" aria-hidden="true"></canvas>
+<main>
+
+  <header>
+    <p class="etiqueta">INVESTIGATHÓN YHAT 2026. ID: T02</p>
+    <h1>Conectividad crítica en Kuramoto: diseño de algoritmo con clusters pesados</h1>
+    <p class="autores">Clara Telesca, Juan Valle, Pedro Monczor y Victoria Cruces</p>
+  </header>
+
+  <section id="intro">
+    <h2>El trabajo</h2>
+    <p>¡Hola! Dentro de este track, nos enfocamos en explorar la cota inferior a la conectividad crítica.
+    Diseñamos un algoritmo de búsqueda que permite optimizar la conectividad de un grafo sujeto a mantener el
+    equilibrio estable no sincronizado globalmente. De esta manera, jugamos en el límite de la conectividad crítica: buscamos un
+    grafo que pese a estar muy conectado, presente equilibrios en donde no todos sus nodos están en fase. Si te interesa
+    saber más sobre nuestro trabajo, seguí bajando.</p>
+  </section>
+
+  <section id="informe">
+    <h2>Informe</h2>
+    <p class="enlaces">
+      <a href="informe.pdf" target="_blank" rel="noopener">Abrir el PDF</a>
+      <a href="informe.pdf" download>Descargar</a>
+    </p>
+    <!-- El PDF se muestra embebido si existe un archivo informe.pdf al lado de esta página. -->
+    <iframe id="visor" class="visor" src="informe.pdf" title="Informe en PDF" hidden></iframe>
+    <p id="sin-informe" class="pendiente" hidden>Informe pendiente: subir el PDF como <code>informe.pdf</code>
+    a la misma carpeta que esta página.</p>
+  </section>
+
+  <section id="codigo">
+    <h2>Código</h2>
+    <p>Acá encontrás el repositorio por si queres reproducir el pipeline:
+    <a href="https://github.com/victoriacruces/kuramoto-clusters" target="_blank" rel="noopener">github.com/victoriacruces/kuramoto-clusters</a>.</p>
+  </section>
+
+  <footer>
+    <p>Si tenés preguntas o ideas que quieras charlar, acá te dejamos nuestros mails:</p>
+    <ul class="contactos">
+      <li><a href="mailto:claratelesca@gmail.com">claratelesca@gmail.com</a></li>
+      <li><a href="mailto:juvalle759@gmail.com">juvalle759@gmail.com</a></li>
+      <li><a href="mailto:monczorpedro@gmail.com">monczorpedro@gmail.com</a></li>
+      <li><a href="mailto:vicruces04@gmail.com">vicruces04@gmail.com</a></li>
+    </ul>
+  </footer>
+
+</main>
+<script>
+  // Muestra el visor solo si informe.pdf existe; si no, muestra el aviso.
+  fetch('informe.pdf', { method: 'HEAD' })
+    .then(function (r) { return r.ok; })
+    .catch(function () { return false; })
+    .then(function (hay) {
+      var esCelular = window.matchMedia('(max-width: 640px)').matches;
+      document.getElementById('visor').hidden = !hay || esCelular;
+      document.getElementById('sin-informe').hidden = hay;
+    });
+</script>
+<script>
+  // Fondo de luciérnagas. Cada una tiene una fase que avanza a su propia frecuencia;
+  // al pasar por cero hace una ráfaga de destellos. Un acople débil tipo Kuramoto
+  // hace que con el tiempo algunas ráfagas se vayan sincronizando.
+  (function () {
+    var lienzo = document.getElementById('luciernagas');
+    var ctx = lienzo.getContext('2d');
+    var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var DOS_PI = Math.PI * 2, K = 0.35, ANCHO_RAFAGA = 0.22, DESTELLOS = 3;
+    var bichos = [], ancho = 0, alto = 0, dpr = 1, color = '';
+
+    function leerColor() {
+      color = getComputedStyle(document.documentElement).getPropertyValue('--luz').trim();
+    }
+
+    function medir() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      ancho = window.innerWidth; alto = window.innerHeight;
+      lienzo.width = ancho * dpr; lienzo.height = alto * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      var n = Math.round(Math.min(40, Math.max(24, ancho * alto / 24000)));
+      while (bichos.length < n) bichos.push(nuevo());
+      bichos.length = n;
+    }
+
+    function nuevo() {
+      return {
+        x: Math.random() * ancho, y: Math.random() * alto,
+        vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8,
+        fase: Math.random() * DOS_PI,
+        omega: DOS_PI / (5 + Math.random() * 3),   // una ráfaga cada 5 a 8 s
+        r: 2 + Math.random() * 1.6
+      };
+    }
+
+    // Brillo según la fase: tres destellos dentro de la ventana de ráfaga, apagada el resto.
+    function brillo(fase) {
+      var u = fase / DOS_PI;
+      if (u > ANCHO_RAFAGA) return 0;
+      var s = Math.sin(Math.PI * DESTELLOS * u / ANCHO_RAFAGA);
+      return s * s;
+    }
+
+    function paso(dt) {
+      var n = bichos.length, sx = 0, sy = 0, i, b;
+      for (i = 0; i < n; i++) { sx += Math.cos(bichos[i].fase); sy += Math.sin(bichos[i].fase); }
+      for (i = 0; i < n; i++) {
+        b = bichos[i];
+        var c = Math.cos(b.fase), s = Math.sin(b.fase);
+        b.fase += dt * (b.omega + K / n * (sy * c - sx * s));
+        b.fase = ((b.fase % DOS_PI) + DOS_PI) % DOS_PI;
+        b.vx += (Math.random() - 0.5) * 6 * dt; b.vy += (Math.random() - 0.5) * 6 * dt;
+        b.vx *= 0.99; b.vy *= 0.99;
+        b.x += b.vx * dt; b.y += b.vy * dt;
+        if (b.x < -20) b.x = ancho + 20; if (b.x > ancho + 20) b.x = -20;
+        if (b.y < -20) b.y = alto + 20; if (b.y > alto + 20) b.y = -20;
+      }
+    }
+
+    function dibujar() {
+      ctx.clearRect(0, 0, ancho, alto);
+      for (var i = 0; i < bichos.length; i++) {
+        var b = bichos[i], a = brillo(b.fase);
+        // un resplandor tenue siempre, y el destello encima
+        var alfa = 0.1 + 0.7 * a, R = b.r * (5 + 4 * a);
+        var g = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, R);
+        g.addColorStop(0, 'rgba(' + color + ',' + alfa + ')');
+        g.addColorStop(0.25, 'rgba(' + color + ',' + alfa * 0.45 + ')');
+        g.addColorStop(1, 'rgba(' + color + ',0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(b.x, b.y, R, 0, DOS_PI); ctx.fill();
+      }
+    }
+
+    var antes = null;
+    function cuadro(t) {
+      if (antes !== null) paso(Math.min((t - antes) / 1000, 0.05));
+      antes = t;
+      dibujar();
+      requestAnimationFrame(cuadro);
+    }
+
+    leerColor(); medir();
+    window.addEventListener('resize', medir);
+    if (quieto) dibujar(); else requestAnimationFrame(cuadro);
+  })();
+</script>
+</body>
+</html>
